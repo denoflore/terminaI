@@ -42,6 +42,25 @@ export const UI_ASSERT_TOOL_NAME = 'ui.assert';
 export const UI_CLICK_XY_TOOL_NAME = 'ui.click_xy';
 export const UI_DIAGNOSE_TOOL_NAME = 'ui.diagnose';
 
+// NSCA Brain Tool Names
+export const BRAIN_STATUS_TOOL_NAME = 'brain_status';
+export const BRAIN_QUERY_TOOL_NAME = 'brain_query';
+export const BRAIN_AFFECT_TOOL_NAME = 'brain_affect';
+export const BRAIN_MODULES_TOOL_NAME = 'brain_modules';
+export const BRAIN_NSL_SCAN_TOOL_NAME = 'brain_nsl_scan';
+export const BRAIN_PROCESS_TOOL_NAME = 'brain_process';
+export const BRAIN_DREAM_TOOL_NAME = 'brain_dream';
+
+export const BRAIN_TOOL_NAMES = [
+  BRAIN_STATUS_TOOL_NAME,
+  BRAIN_QUERY_TOOL_NAME,
+  BRAIN_AFFECT_TOOL_NAME,
+  BRAIN_MODULES_TOOL_NAME,
+  BRAIN_NSL_SCAN_TOOL_NAME,
+  BRAIN_PROCESS_TOOL_NAME,
+  BRAIN_DREAM_TOOL_NAME,
+];
+
 export const UI_TOOL_NAMES = [
   UI_HEALTH_TOOL_NAME,
   UI_CAPABILITIES_TOOL_NAME,
@@ -81,6 +100,7 @@ export const ALL_BUILTIN_TOOL_NAMES = [
 
   GET_INTERNAL_DOCS_TOOL_NAME,
   ...UI_TOOL_NAMES,
+  ...BRAIN_TOOL_NAMES,
 ];
 
 interface IsValidToolNameOptions {

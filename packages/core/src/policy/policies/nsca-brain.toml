@@ -1,0 +1,86 @@
+# NSCA Brain Tools Policy Configuration
+#
+# Approval Tier Mapping (from NSCA spec):
+#   Tier A (Safe/Reversible): Read-only operations, no approval required
+#   Tier B (Mutating): Write operations, explicit approval required
+#   Tier C (Destructive/High-Risk): Major changes, approval + PIN required
+#
+# Policy priority values:
+#   50: Read-only (Tier A) - Allow without confirmation
+#   10: Write/Mutate (Tier B) - Require confirmation (default ASK_USER)
+#   100: High-risk (Tier C) - Higher priority, stricter confirmation
+#
+# Brain tools tier mapping:
+#   brain_status     -> A (read-only health check)
+#   brain_query      -> A (read-only memory retrieval)
+#   brain_affect(get)-> A (read current state)
+#   brain_modules    -> A (status query)
+#   brain_nsl_scan   -> A (analysis only)
+#   brain_affect(mod)-> B (modifies emotional state)
+#   brain_process    -> B (writes to memory)
+#   brain_dream      -> B (consolidate/integrate) or C (deep_clean)
+
+# =========================================================================
+# Tier A Tools - Allow without confirmation
+# =========================================================================
+
+[[rule]]
+toolName = "brain_status"
+decision = "allow"
+priority = 50
+
+[[rule]]
+toolName = "brain_query"
+decision = "allow"
+priority = 50
+
+[[rule]]
+toolName = "brain_modules"
+decision = "allow"
+priority = 50
+
+[[rule]]
+toolName = "brain_nsl_scan"
+decision = "allow"
+priority = 50
+
+# brain_affect with action="get" is tier A
+[[rule]]
+toolName = "brain_affect"
+argsPattern = "\"action\"\\s*:\\s*\"get\""
+decision = "allow"
+priority = 50
+
+# =========================================================================
+# Tier B Tools - Require user confirmation
+# =========================================================================
+
+# brain_affect with action="modulate" requires confirmation
+[[rule]]
+toolName = "brain_affect"
+argsPattern = "\"action\"\\s*:\\s*\"modulate\""
+decision = "ask_user"
+priority = 10
+
+[[rule]]
+toolName = "brain_process"
+decision = "ask_user"
+priority = 10
+
+# brain_dream standard modes (consolidate, integrate, wander)
+[[rule]]
+toolName = "brain_dream"
+argsPattern = "\"mode\"\\s*:\\s*\"(consolidate|integrate|wander)\""
+decision = "ask_user"
+priority = 10
+
+# =========================================================================
+# Tier C Tools - High-risk operations requiring stricter confirmation
+# =========================================================================
+
+# brain_dream with deep_clean mode is tier C (major memory reorganization)
+[[rule]]
+toolName = "brain_dream"
+argsPattern = "\"mode\"\\s*:\\s*\"deep_clean\""
+decision = "ask_user"
+priority = 100

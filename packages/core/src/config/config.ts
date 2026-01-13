@@ -56,6 +56,17 @@ import { UiWaitTool } from '../tools/ui-wait.js';
 import { UiAssertTool } from '../tools/ui-assert.js';
 import { UiClickXyTool } from '../tools/ui-click-xy.js';
 import { UiDiagnoseTool } from '../tools/ui-diagnose.js';
+// NSCA Brain Tools
+import {
+  BrainStatusTool,
+  BrainQueryTool,
+  BrainAffectTool,
+  BrainModulesTool,
+  BrainNSLScanTool,
+  BrainProcessTool,
+  BrainDreamTool,
+  type NSCASettings,
+} from '../nsca/index.js';
 import { GeminiClient } from '../core/client.js';
 import { BaseLlmClient } from '../core/baseLlmClient.js';
 import type { HookDefinition, HookEventName } from '../hooks/types.js';
@@ -406,6 +417,7 @@ export interface ConfigParameters {
   audit?: AuditSettings;
   recipes?: RecipesSettings;
   guiAutomation?: Partial<GuiAutomationConfig>;
+  nsca?: Partial<NSCASettings>;
 }
 
 export interface AuditSettings {
@@ -1949,6 +1961,15 @@ export class Config {
     registerCoreTool(UiAssertTool, this);
     registerCoreTool(UiClickXyTool, this);
     registerCoreTool(UiDiagnoseTool, this);
+
+    // Register NSCA Brain Tools
+    registerCoreTool(BrainStatusTool);
+    registerCoreTool(BrainQueryTool);
+    registerCoreTool(BrainAffectTool);
+    registerCoreTool(BrainModulesTool);
+    registerCoreTool(BrainNSLScanTool);
+    registerCoreTool(BrainProcessTool);
+    registerCoreTool(BrainDreamTool);
 
     // Register Subagents as Tools
     // Register DelegateToAgentTool if agents are enabled
