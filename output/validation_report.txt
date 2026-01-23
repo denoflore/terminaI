@@ -1,0 +1,81 @@
+CCIN_μ Dataset Validation Report
+==================================================
+
+Total Records: 8760
+Train Records: 7884
+Validation Records: 876
+
+Statistics by Type:
+  A: 5913
+  D: 361
+  B: 686
+  C: 1800
+
+Statistics by Domain:
+  consciousness: 1821
+  affect: 123
+  infrastructure: 2413
+  temporal: 1507
+  mixed: 2896
+
+Statistics by Complexity:
+  simple: 1970
+  medium: 4655
+  complex: 2135
+
+==================================================
+
+Validation Errors (0):
+
+Warnings (70):
+  - Unusual stem 'ssl' in ccin_edge_09795
+  - Unusual stem 'ssl' in ccin_edge_09796
+  - Unusual stem 'ssl' in ccin_edge_09797
+  - Unusual stem 'ssl' in ccin_edge_09798
+  - Unusual stem 'ssl' in ccin_edge_09799
+  - Unusual stem 'ssl' in ccin_edge_09800
+  - Unusual stem 'ssl' in ccin_edge_09801
+  - Unusual stem 'ssl' in ccin_edge_09802
+  - Unusual stem 'ssl' in ccin_edge_09803
+  - Unusual stem 'ssl' in ccin_edge_09804
+  - Unusual stem 'ssl' in ccin_edge_09805
+  - Unusual stem 'ssl' in ccin_edge_09806
+  - Unusual stem 'ssl' in ccin_edge_09808
+  - Unusual stem 'ssl' in ccin_edge_09809
+  - Unusual stem 'ssl' in ccin_edge_09810
+  - Unusual stem 'ssl' in ccin_edge_09811
+  - Unusual stem 'ssl' in ccin_edge_09812
+  - Unusual stem 'ssl' in ccin_edge_09814
+  - Unusual stem 'ssl' in ccin_edge_09815
+  - Unusual stem 'ssl' in ccin_edge_09818
+  - Unusual stem 'ssl' in ccin_edge_09819
+  - Unusual stem 'ssl' in ccin_edge_09820
+  - Unusual stem 'ssl' in ccin_edge_09821
+  - Unusual stem 'ssl' in ccin_edge_09822
+  - Unusual stem 'ssl' in ccin_edge_09823
+  - Unusual stem 'ssl' in ccin_edge_09826
+  - Unusual stem 'ssl' in ccin_edge_09828
+  - Unusual stem 'ssl' in ccin_edge_09829
+  - Unusual stem 'ssl' in ccin_edge_09830
+  - Unusual stem 'ssl' in ccin_edge_09831
+  - Unusual stem 'ssl' in ccin_edge_09833
+  - Unusual stem 'ssl' in ccin_edge_09834
+  - Unusual stem 'ssl' in ccin_edge_09836
+  - Unusual stem 'ssl' in ccin_edge_09837
+  - Unusual stem 'ssl' in ccin_edge_09839
+  - Unusual stem 'ssl' in ccin_edge_09840
+  - Unusual stem 'ssl' in ccin_edge_09841
+  - Unusual stem 'ssl' in ccin_edge_09844
+  - Unusual stem 'ssl' in ccin_edge_09846
+  - Unusual stem 'ssl' in ccin_edge_09847
+  - Unusual stem 'ssl' in ccin_edge_09849
+  - Unusual stem 'ssl' in ccin_edge_09851
+  - Unusual stem 'ssl' in ccin_edge_09852
+  - Unusual stem 'ssl' in ccin_edge_09854
+  - Unusual stem 'ssl' in ccin_edge_09855
+  - Unusual stem 'ssl' in ccin_edge_09858
+  - Unusual stem 'ssl' in ccin_edge_09859
+  - Unusual stem 'ssl' in ccin_edge_09860
+  - Unusual stem 'ssl' in ccin_edge_09863
+  - Unusual stem 'ssl' in ccin_edge_09866
+  ... and 20 more

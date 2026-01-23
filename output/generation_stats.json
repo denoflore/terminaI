@@ -1,0 +1,42 @@
+{
+  "phase1_seeds": {
+    "total_seeds": 82,
+    "by_domain": {
+      "infrastructure": 34,
+      "temporal": 13,
+      "consciousness": 31,
+      "affect": 3,
+      "mixed": 1
+    },
+    "by_complexity": {
+      "simple": 37,
+      "medium": 32,
+      "complex": 13
+    },
+    "by_type": {
+      "A": 71,
+      "D": 11
+    }
+  },
+  "phase2_consciousness": {
+    "total_generated": 1910,
+    "batches": 3,
+    "expansion_generated": 806
+  },
+  "phase3_infrastructure": {
+    "total_generated": 2379,
+    "batches": 5
+  },
+  "phase4_temporal": {
+    "total_generated": 1494,
+    "batches": 3
+  },
+  "phase5_similarity": {
+    "total_generated": 1800,
+    "batches": 4
+  },
+  "phase6_edge_cases": {
+    "total_generated": 1095,
+    "batches": 3
+  }
+}
