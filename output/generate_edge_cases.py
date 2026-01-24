@@ -95,8 +95,8 @@ class EdgeCaseGenerator:
             for _ in range(10):
                 # Registration + usage
                 val = random.randint(60, 140) if stem == 'hr' else random.randint(90, 100) if stem == 'sp' else random.randint(70, 130)
-                ccin = f"REG!medical:{stem}={full_name}\n●{stem}{format_count(val)}✓"
-                english = f"Register medical stem '{stem}' as {full_name}. {full_name.replace('_', ' ').title()} is healthy at {val}"
+                ccin = f"「REG!{stem}≡{full_name}」●{stem}{format_count(val)}✓"
+                english = f"Register stem '{stem}' as {full_name}. {full_name.replace('_', ' ').title()} is healthy at {val}"
                 self.add_record(ccin, english, 'complex', [stem], ['●'], 'reg_protocol')
 
         # Financial domain
@@ -112,8 +112,8 @@ class EdgeCaseGenerator:
                 val = random.randint(10, 200)
                 direction = random.choice(['△', '▽'])
                 dir_word = 'rising' if direction == '△' else 'falling'
-                ccin = f"REG!finance:{stem}={full_name}\n{direction}{stem}{format_percent(val)}"
-                english = f"Register finance stem '{stem}' as {full_name}. {desc.capitalize()} {dir_word} to {val}%"
+                ccin = f"「REG!{stem}≡{full_name}」{direction}{stem}{format_percent(val)}"
+                english = f"Register stem '{stem}' as {full_name}. {desc.capitalize()} {dir_word} to {val}%"
                 self.add_record(ccin, english, 'complex', [stem], [direction], 'reg_protocol')
 
         # IoT/Sensor domain
@@ -128,8 +128,8 @@ class EdgeCaseGenerator:
         for stem, full_name, unit in iot_stems:
             for _ in range(8):
                 val = random.randint(20, 80)
-                ccin = f"REG!iot:{stem}={full_name}\n●{stem}{format_count(val)}"
-                english = f"Register IoT stem '{stem}' as {full_name}. Current {full_name} reading: {val} {unit}"
+                ccin = f"「REG!{stem}≡{full_name}」●{stem}{format_count(val)}"
+                english = f"Register stem '{stem}' as {full_name}. Current {full_name} reading: {val} {unit}"
                 self.add_record(ccin, english, 'complex', [stem], ['●'], 'reg_protocol')
 
     def generate_nested_compositions(self):
@@ -158,7 +158,7 @@ class EdgeCaseGenerator:
             cp = random.randint(30, 95)
             mm = random.randint(40, 90)
 
-            ccin = f"I:PROD:{{\n  CLUSTER:{{\n    nd{format_count(random.randint(3, 8))}\n    pd{format_count(random.randint(10, 50))}\n  }}\n  SERVICES:{{\n    sv{format_count(svs)}✓⋀db{format_count(dbs)}✓\n  }}\n  RESOURCES:{{\n    cp{format_percent(cp)}⋀mm{format_percent(mm)}\n  }}\n}}"
+            ccin = f"P:PROD:{{\n  CLUSTER:{{\n    nd{format_count(random.randint(3, 8))}\n    pd{format_count(random.randint(10, 50))}\n  }}\n  SERVICES:{{\n    sv{format_count(svs)}✓⋀db{format_count(dbs)}✓\n  }}\n  RESOURCES:{{\n    cp{format_percent(cp)}⋀mm{format_percent(mm)}\n  }}\n}}"
 
             english = f"Production infrastructure with nested cluster, services, and resource blocks"
 
@@ -230,7 +230,7 @@ class EdgeCaseGenerator:
             ("ᐊ²ʰ●→ᐃ⊘", "was active 2h ago, now down", ['generic']),
             ("vl⁺ar⁺", "valence up, arousal up", ['vl', 'ar']),
             ("C:⊕", "consciousness adding", ['generic']),
-            ("I:⊖", "infrastructure removing", ['generic']),
+            ("P:⊖", "infrastructure removing", ['generic']),
         ]
 
         for ccin, english, stems in compressions:
@@ -249,7 +249,7 @@ class EdgeCaseGenerator:
             ("⊘", "Generic failure/negation state", ['generic']),
             ("●✓", "Generic active and healthy state", ['generic']),
             ("C:ᐃ", "Consciousness in present moment", ['generic']),
-            ("I:ᐊ", "Infrastructure past state reference", ['generic']),
+            ("P:ᐊ", "Infrastructure past state reference", ['generic']),
             ("∵∴", "Because-therefore (empty causal chain)", ['generic']),
             ("→→→", "Sequential progression (no states specified)", ['generic']),
             ("⋀⋁", "And-or conjunction (precedence ambiguous)", ['generic']),

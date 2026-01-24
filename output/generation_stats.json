@@ -1,21 +1,21 @@
 {
   "phase1_seeds": {
-    "total_seeds": 82,
+    "total_seeds": 89,
     "by_domain": {
-      "infrastructure": 34,
+      "infrastructure": 38,
       "temporal": 13,
-      "consciousness": 31,
+      "consciousness": 32,
       "affect": 3,
-      "mixed": 1
+      "mixed": 3
     },
     "by_complexity": {
       "simple": 37,
-      "medium": 32,
-      "complex": 13
+      "medium": 34,
+      "complex": 18
     },
     "by_type": {
-      "A": 71,
-      "D": 11
+      "A": 77,
+      "D": 12
     }
   },
   "phase2_consciousness": {

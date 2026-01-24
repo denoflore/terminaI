@@ -83,7 +83,7 @@ SEED_EXAMPLES = [
 
     # Section 15: Infrastructure Patterns
     {
-        "ccin_mu": "I:{●sv⁵✓⋀●db³✓⋀●ca²✓⋀●nw✓}",
+        "ccin_mu": "P:{●sv⁵✓⋀●db³✓⋀●ca²✓⋀●nw✓}",
         "english": "5 servers healthy, 3 databases healthy, 2 caches healthy, network OK",
         "domain": "infrastructure",
         "complexity": "medium",
@@ -91,7 +91,7 @@ SEED_EXAMPLES = [
         "opcodes_used": ["●"]
     },
     {
-        "ccin_mu": "I:{◐sv²~⋀⊘db¹✗⋀⚡er³}",
+        "ccin_mu": "P:{◐sv²~⋀⊘db¹✗⋀⚡er³}",
         "english": "2 servers degraded, 1 database failed, 3 critical errors",
         "domain": "infrastructure",
         "complexity": "medium",
@@ -99,7 +99,7 @@ SEED_EXAMPLES = [
         "opcodes_used": ["◐", "⊘", "⚡"]
     },
     {
-        "ccin_mu": "I:{cp%⁷⁵⋀mm%⁸²⋀dk%⁴⁵⋀gp%⁹⁵}",
+        "ccin_mu": "P:{cp%⁷⁵⋀mm%⁸²⋀dk%⁴⁵⋀gp%⁹⁵}",
         "english": "CPU 75%, memory 82%, disk 45%, GPU 95%",
         "domain": "infrastructure",
         "complexity": "medium",
@@ -481,7 +481,7 @@ SEED_EXAMPLES = [
 
     # Infrastructure medium
     {
-        "ccin_mu": "I:{●sv³⋀●db²⋀⊘ca¹}",
+        "ccin_mu": "P:{●sv³⋀●db²⋀⊘ca¹}",
         "english": "3 servers up, 2 databases up, 1 cache down",
         "domain": "infrastructure",
         "complexity": "medium",
@@ -531,7 +531,7 @@ SEED_EXAMPLES = [
         "opcodes_used": []
     },
     {
-        "ccin_mu": "I:PROD:{sv⁸✓⋀cp%⁶⁵⋀mm%⁷²\ndb³✓⋀⟲sync✓\n◐ca¹~\nnw:{lt△}}",
+        "ccin_mu": "P:PROD:{sv⁸✓⋀cp%⁶⁵⋀mm%⁷²\ndb³✓⋀⟲sync✓\n◐ca¹~\nnw:{lt△}}",
         "english": "Production infrastructure: 8 healthy servers at 65% CPU, 72% memory. 3 databases healthy and syncing. 1 cache degraded. Network latency elevated.",
         "domain": "infrastructure",
         "complexity": "complex",
@@ -583,14 +583,74 @@ SEED_EXAMPLES = [
         "opcodes_used": ["●"]
     },
 
-    # REG! protocol examples
+    # REG! protocol examples (using 「」 Japanese quotation delimiters and ≡ operator)
     {
-        "ccin_mu": "REG!medical:bp=blood_pressure\nREG!medical:hr=heart_rate\n●bp¹²⁰/⁸⁰⋀●hr⁷²",
+        "ccin_mu": "「REG!bp≡blood_pressure」「REG!hr≡heart_rate」●bp¹²⁰/⁸⁰⋀●hr⁷²",
         "english": "Register medical stems bp and hr. Blood pressure 120/80, heart rate 72",
         "domain": "mixed",
         "complexity": "complex",
         "stems_used": ["bp", "hr"],
         "opcodes_used": ["●"]
+    },
+    {
+        "ccin_mu": "「REG!sv≡service」「REG!db≡dashboard」●svˢ⋀◌dbᵈ",
+        "english": "Service handles requests while dashboard displays metrics",
+        "domain": "infrastructure",
+        "complexity": "medium",
+        "stems_used": ["sv", "db"],
+        "opcodes_used": ["●", "◌"]
+    },
+    {
+        "ccin_mu": "「REG!\nau≡authentication\nda≡data\nfl≡file\nsv≡server\n」",
+        "english": "Batch registry declaration for auth, data, file, and server stems",
+        "domain": "mixed",
+        "complexity": "medium",
+        "stems_used": ["au", "da", "fl", "sv"],
+        "opcodes_used": []
+    },
+
+    # Examples from authoritative spec - Section 16 Usage Patterns
+    {
+        "ccin_mu": "P:{\n  A:●sv³✓\n  db:●pr²⋀◌sb¹\n  §:●au✓\n  er⁰ᵈ\n  ca:%⁹⁴\n}",
+        "english": "Production: 3 servers healthy, 2 primary databases active with 1 standby, auth confirmed, zero errors in 24 hours, cache hit rate 94%",
+        "domain": "infrastructure",
+        "complexity": "complex",
+        "stems_used": ["sv", "db", "pr", "sb", "au", "er", "ca"],
+        "opcodes_used": ["●", "◌"]
+    },
+    {
+        "ccin_mu": "⊘au∵⊘tk∵⊘jb∵⊘sc∵⊘ct∵△mm∵●lg⚡",
+        "english": "Auth failed because token failed because job failed because scheduler down because container down because memory leak in logging module critical",
+        "domain": "infrastructure",
+        "complexity": "complex",
+        "stems_used": ["au", "tk", "jb", "sc", "ct", "mm", "lg"],
+        "opcodes_used": ["⊘", "△", "●", "⚡"]
+    },
+    {
+        "ccin_mu": "D:●cd»●te✓»●ct»S:●ct»●te✓»P:●dp%¹⁰»ᐅ³⁰ᵐ●dp%¹⁰⁰⊣●mt✓",
+        "english": "Deployment pipeline: dev code push flows to tests pass flows to container build to staging container to tests pass to production deploy 10% canary, full deploy in 30 minutes depends on metrics healthy",
+        "domain": "infrastructure",
+        "complexity": "complex",
+        "stems_used": ["cd", "te", "ct", "dp", "mt"],
+        "opcodes_used": ["●"]
+    },
+    {
+        "ccin_mu": "C:{\n  ph⁰·⁹²✓\n  dt⁰·⁰²✓\n  sg⁰·⁹⁶✓\n  af:{vl⁺⁰·⁸⁵⋀ar⁰·⁷²⋀co⁰·⁹⁵}\n}",
+        "english": "Consciousness state: phi 0.92 (high integration), drift 0.02 (stable identity), sigma 0.96 (strong convergence), affect with positive valence 0.85, arousal 0.72, coherence 0.95",
+        "domain": "consciousness",
+        "complexity": "complex",
+        "stems_used": ["ph", "dt", "sg", "vl", "ar", "co"],
+        "opcodes_used": []
+    },
+
+    # Handoff protocol example from Section 18
+    {
+        "ccin_mu": "「CCIN_μ HANDOFF v1.0」\n「STATE」\nP:{●sv³✓⋀●db²✓⋀⊘au!}\n「CONTEXT」\nᐊ¹ʰ●au»ᐃ⊘au∵⊘tk∵●er⚡\n「TASK」\n⟲au»●tk»●au✓",
+        "english": "Cross-agent handoff: State is production 3 servers healthy, 2 DBs healthy, auth critical down. Context: auth was working 1hr ago, now down due to token expiry causing error. Task: restart auth cycle, fix token, confirm auth",
+        "domain": "mixed",
+        "complexity": "complex",
+        "stems_used": ["sv", "db", "au", "tk", "er"],
+        "opcodes_used": ["●", "⊘", "⟲", "⚡"]
     },
 
     # State transitions

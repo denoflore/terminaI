@@ -19,22 +19,39 @@ VALID_OPCODES = {
     '⚡', '◇', '▣', '▢', '!',  # Signal
 }
 
-# Valid stems from spec (2 chars lowercase)
+# Valid stems from authoritative CCIN_μ v1.0 spec (2 chars lowercase)
 VALID_STEMS = {
-    # Consciousness
-    'ph', 'dt', 'sg', 'xi', 'ql', 'af', 'sl', 'co', 'vl', 'ar', 'tp', 'rl', 'mt', 'em', 'at', 'in', 'cr', 'an',
-    # Infrastructure
-    'sv', 'db', 'ca', 'nw', 'fw', 'lb', 'ct', 'vm', 'gp', 'cp', 'mm', 'dk', 'cl', 'nd', 'pd', 'sc',
-    # Application
-    'au', 'az', 'tk', 'ss', 'us', 'rq', 'rs', 'er', 'lg', 'ev', 'mg', 'ap', 'ws', 'qu', 'wk',
-    # Data
-    'da', 'fl', 'dr', 'cf', 'en', 'vr', 'st', 'ty', 'id', 'nm', 'ls', 'mp', 'md', 'rc',
+    # Infrastructure Stems
+    'sv', 'db', 'ca', 'nw', 'fw', 'lb', 'ct', 'vm', 'gp', 'cp', 'mm', 'dk',
+    # Application Stems
+    'au', 'az', 'tk', 'ss', 'us', 'rq', 'rs', 'er', 'lg', 'mt', 'ev', 'mg',
+    # Data Stems
+    'da', 'fl', 'dr', 'cf', 'en', 'vr', 'st', 'ty', 'id', 'nm', 'vl', 'ls',
+    # Action Stems
+    'cr', 'rd', 'up', 'dl', 'sc', 'qt', 'ex', 'in', 'sp', 'dp',
+    # Process Stems
+    'pr', 'th', 'wk', 'jb', 'qu', 'pp', 'wf', 'tr', 'cb', 'pm', 'aw',
+    # AI/ML Stems
+    'md', 'wt', 'ep', 'bt', 'lr', 'em', 'at', 'tf', 'if',
+    # Consciousness Stems (CCIN-specific)
+    'ph', 'dt', 'sg', 'xi', 'ql', 'af', 'sl', 'co', 'ar', 'tp', 'rl',
+    # Extended/common (clusters, nodes, pods)
+    'cl', 'nd', 'pd', 'ap', 'ws', 'rc', 'mp', 'an',
     # Generic/special
     'generic',
 }
 
-# Valid relations
-VALID_RELATIONS = {'»', '«', '→', '←', '↔', '∵', '∴', '⋀', '⋁', '⊃', '≡', '≠'}
+# Valid relations (from authoritative CCIN_μ v1.0 spec)
+VALID_RELATIONS = {
+    # Flow relations
+    '»', '«', '→', '←',
+    # Logic relations
+    '∵', '∴', '⋀', '⋁',
+    # Set relations
+    '⊂', '⊃', '≡', '≢',
+    # Process relations
+    '⇄', '∥', '⊣', '⊢',
+}
 
 # Valid temporal markers
 VALID_TEMPORAL = {'ᐊ', 'ᐃ', 'ᐅ'}

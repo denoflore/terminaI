@@ -191,7 +191,7 @@ class SimilarityGenerator:
 
             def make_resource(vals):
                 parts = [f"{r}{format_percent(v)}" for r, v in vals.items()]
-                return f"I:{{{('⋀'.join(parts))}}}"
+                return f"P:{{{('⋀'.join(parts))}}}"
 
             anchor = make_resource(anchor_vals)
             positive = make_resource(positive_vals)
@@ -234,7 +234,7 @@ class SimilarityGenerator:
                     parts.append(f"◐sv{format_count(d)}~")
                 if f > 0:
                     parts.append(f"⊘sv{format_count(f)}✗")
-                return f"I:{{{('⋀'.join(parts))}}}" if parts else "I:{●sv✓}"
+                return f"P:{{{('⋀'.join(parts))}}}" if parts else "P:{●sv✓}"
 
             anchor = make_infra(anchor_healthy, anchor_degraded, anchor_failed)
             positive = make_infra(pos_healthy, pos_degraded, pos_failed)
@@ -365,7 +365,7 @@ class SimilarityGenerator:
         # Health/positive states across domains
         health_patterns = [
             ("●sv⁵✓", "C:{{vl%⁸⁵⋀ar%⁵⁵}}", "⊘nw✗"),  # healthy infra ~ positive affect
-            ("I:{{cp%⁴⁵⋀mm%⁵⁰}}", "RC:{{sg⁰·⁹⁰⋀xi⁰·⁰⁵}}", "⚡er⁵"),  # low resource ~ stable mind
+            ("P:{{cp%⁴⁵⋀mm%⁵⁰}}", "RC:{{sg⁰·⁹⁰⋀xi⁰·⁰⁵}}", "⚡er⁵"),  # low resource ~ stable mind
             ("●au✓⋀●ss⁵⁰", "C:{{co%⁹⁰⋀mt%⁸⁵}}", "⊘db∴⊘ap"),  # working auth ~ coherent mind
         ]
 

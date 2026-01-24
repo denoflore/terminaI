@@ -117,12 +117,12 @@ ERROR_SCENARIOS = [
 
 # Health report templates
 HEALTH_TEMPLATES = [
-    "I:{{●sv{sv_count}✓⋀●db{db_count}✓}}",
-    "I:{{●sv{sv_count}✓⋀●db{db_count}✓⋀●ca{ca_count}✓}}",
-    "I:{{●sv{sv_count}✓⋀●nw✓⋀cp%{cp}⋀mm%{mm}}}",
-    "I:CLUSTER:{{●nd{nd_count}⋀●pd{pd_count}⋀●ct{ct_count}}}",
-    "I:{{cp%{cp}⋀mm%{mm}⋀dk%{dk}}}",
-    "I:{{cp%{cp}⋀mm%{mm}⋀gp%{gp}}}",
+    "P:{{●sv{sv_count}✓⋀●db{db_count}✓}}",
+    "P:{{●sv{sv_count}✓⋀●db{db_count}✓⋀●ca{ca_count}✓}}",
+    "P:{{●sv{sv_count}✓⋀●nw✓⋀cp%{cp}⋀mm%{mm}}}",
+    "P:{{●nd{nd_count}⋀●pd{pd_count}⋀●ct{ct_count}}}",
+    "P:{{cp%{cp}⋀mm%{mm}⋀dk%{dk}}}",
+    "P:{{cp%{cp}⋀mm%{mm}⋀gp%{gp}}}",
 ]
 
 
@@ -308,7 +308,7 @@ class InfrastructureGenerator:
             count = random.randint(1, 5)
             info = {**INFRA_STEMS, **APP_STEMS}.get(component, {'name': component})
 
-            ccin = f"!I:{{⊘{component}{format_count(count) if count > 1 else ''}∴⚡er}}"
+            ccin = f"!P:{{⊘{component}{format_count(count) if count > 1 else ''}∴⚡er}}"
             english = f"ALERT: {count if count > 1 else ''} {info.get('plural', info['name']) if count > 1 else info['name']} down, critical error"
             self.add_record(ccin, english, 'medium', [component, 'er'], ['!', '⊘', '⚡'])
 
@@ -342,7 +342,7 @@ class InfrastructureGenerator:
                 parts.append(f"⚡er{format_count(errors)}")
                 desc_parts.append(f"{errors} critical errors")
 
-            ccin = f"I:{{{('⋀'.join(parts))}}}"
+            ccin = f"P:{{{('⋀'.join(parts))}}}"
             english = ", ".join(desc_parts)
 
             stems = ['sv', 'db']
@@ -374,7 +374,7 @@ class InfrastructureGenerator:
                 severity = ''
                 sev_text = ''
 
-            ccin = f"{severity}I:{{cp{format_percent(cp)}⋀mm{format_percent(mm)}⋀dk{format_percent(dk)}}}"
+            ccin = f"{severity}P:{{cp{format_percent(cp)}⋀mm{format_percent(mm)}⋀dk{format_percent(dk)}}}"
             english = f"{sev_text}Resources: CPU {cp}%, memory {mm}%, disk {dk}%"
 
             opcodes = []
@@ -408,7 +408,7 @@ class InfrastructureGenerator:
             running_pods = random.randint(int(pods * 0.9), pods)
             containers = random.randint(pods, pods * 3)
 
-            ccin = f"I:K8S:{{\n  nd:{format_count(healthy_nodes)}/{format_count(nodes)}✓\n  pd:{format_count(running_pods)}/{format_count(pods)}✓\n  ct{format_count(containers)}✓\n}}"
+            ccin = f"P:{{\n  nd:{format_count(healthy_nodes)}/{format_count(nodes)}✓\n  pd:{format_count(running_pods)}/{format_count(pods)}✓\n  ct{format_count(containers)}✓\n}}"
 
             english = f"Kubernetes cluster: {healthy_nodes}/{nodes} nodes healthy, {running_pods}/{pods} pods running, {containers} containers"
 
@@ -480,7 +480,7 @@ class InfrastructureGenerator:
 
         # Static patterns (no substitution needed)
         static_patterns = [
-            ("All systems operational", "I:{{●sv✓⋀●db✓⋀●nw✓}}", ['sv', 'db', 'nw']),
+            ("All systems operational", "P:{{●sv✓⋀●db✓⋀●nw✓}}", ['sv', 'db', 'nw']),
             ("Database is down", "⊘db", ['db']),
             ("Three servers unhealthy", "⊘sv³✗", ['sv']),
             ("Cache performance degraded", "◐ca~", ['ca']),
