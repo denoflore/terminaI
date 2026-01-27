@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
 CCIN_μ Consciousness Domain Expansion Generator
-Phase 2 Expansion: Generate additional pairs to reach 2000 total
+Focuses on RC blocks, phenomenal states, and consciousness-related patterns
 """
 
 import json
 import random
+import time
 from pathlib import Path
-from typing import List
+from typing import List, Dict
+from datetime import datetime
 
 # Superscript mapping
 SUPERSCRIPT = {
@@ -19,85 +21,51 @@ SUPERSCRIPT = {
 def to_superscript(num: str) -> str:
     return ''.join(SUPERSCRIPT.get(c, c) for c in str(num))
 
+def format_count(val: int) -> str:
+    return to_superscript(str(val))
+
 def format_percent(val: int) -> str:
     if val < 0:
         return f"%⁻{to_superscript(str(abs(val)))}"
     return f"%{to_superscript(str(val))}"
 
 def format_decimal(val: float) -> str:
-    formatted = f"{val:.2f}".replace("0.", "0.")
+    formatted = f"{val:.2f}"
     return to_superscript(formatted)
 
-# Additional phenomenological templates
-FLOW_STATES = [
-    "Deep creative flow with effortless concentration",
-    "Absorbed engagement with task at hand",
-    "Timeless immersion in the work",
-    "Peak performance state with optimal challenge-skill balance",
-    "Complete task absorption with diminished self-consciousness",
-    "Fluid creative expression flowing naturally",
-    "Harmonious merging of action and awareness",
-    "Intrinsically rewarding engagement",
-]
 
-CONTEMPLATIVE_STATES = [
-    "Quiet contemplation with clear observation",
-    "Meditative awareness without grasping",
-    "Spacious presence with minimal thought",
-    "Receptive witnessing consciousness",
-    "Gentle attention resting in present moment",
-    "Open awareness without agenda",
-    "Calm observation of arising experience",
-    "Peaceful abiding in natural awareness",
-]
-
-ANALYTICAL_STATES = [
-    "Focused analytical processing",
-    "Careful logical reasoning engaged",
-    "Systematic problem decomposition active",
-    "Critical evaluation mode engaged",
-    "Sequential reasoning proceeding step by step",
-    "Pattern recognition scanning for structure",
-    "Hypothesis testing in progress",
-    "Deliberate systematic analysis",
-]
-
-SOCIAL_STATES = [
-    "Warm relational attunement present",
-    "Empathic connection with others",
-    "Social awareness heightened",
-    "Interpersonal sensitivity active",
-    "Collaborative mind engaged",
-    "Caring presence extending outward",
-    "Responsive to social cues",
-    "Attuned to relational dynamics",
-]
-
-TRANSITION_PATTERNS = [
-    ("anxiety", "calm", "through deliberate breathing"),
-    ("confusion", "clarity", "as understanding emerged"),
-    ("fatigue", "alertness", "after brief rest"),
-    ("distraction", "focus", "through intention setting"),
-    ("agitation", "peace", "via mindful pausing"),
-    ("overwhelm", "manageability", "by prioritizing"),
-    ("negativity", "acceptance", "through reframing"),
-    ("disconnection", "presence", "by grounding"),
-]
-
-
-class ExpansionGenerator:
-    def __init__(self, output_dir: Path, start_id: int = 1105, batch_num: int = 4):
+class ConsciousnessGenerator:
+    def __init__(self, output_dir: Path, start_batch: int = 51):
         self.output_dir = output_dir
-        self.current_id = start_id
-        self.batch_num = batch_num
+        self.batch_num = start_batch
         self.records = []
         self.batch_size = 500
-        random.seed(43)  # Different seed for variety
+        self.total_generated = 0
+        random.seed(int(time.time()) + 54321)
 
     def get_id(self) -> str:
-        id_str = f"ccin_cons_{self.current_id:05d}"
-        self.current_id += 1
+        id_str = f"ccin_cons_{self.total_generated + 45000:05d}"
+        self.total_generated += 1
         return id_str
+
+    def add_record(self, ccin: str, english: str, complexity: str,
+                   domain: str, stems: List[str], opcodes: List[str],
+                   pair_type: str = 'A'):
+        record = {
+            "id": self.get_id(),
+            "type": pair_type,
+            "domain": domain,
+            "complexity": complexity,
+            "ccin_mu": ccin,
+            "english": english,
+            "stems_used": stems,
+            "opcodes_used": opcodes,
+            "valid": True
+        }
+        self.records.append(record)
+
+        if len(self.records) >= self.batch_size:
+            self.save_batch()
 
     def save_batch(self):
         if not self.records:
@@ -107,313 +75,391 @@ class ExpansionGenerator:
         with open(filepath, 'w', encoding='utf-8') as f:
             for record in self.records:
                 f.write(json.dumps(record, ensure_ascii=False) + '\n')
-        print(f"Saved batch {self.batch_num} with {len(self.records)} records to {filename}")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Saved batch {self.batch_num} with {len(self.records)} records")
         self.batch_num += 1
         self.records = []
 
-    def add_record(self, ccin_mu: str, english: str, domain: str, complexity: str,
-                   stems_used: List[str], opcodes_used: List[str], pair_type: str = 'A'):
-        record = {
-            "id": self.get_id(),
-            "type": pair_type,
-            "domain": domain,
-            "complexity": complexity,
-            "ccin_mu": ccin_mu,
-            "english": english,
-            "stems_used": stems_used,
-            "opcodes_used": opcodes_used,
-            "valid": True
-        }
-        self.records.append(record)
-        if len(self.records) >= self.batch_size:
-            self.save_batch()
+    # ==================== RC BLOCK PATTERNS ====================
 
-    def generate_flow_states(self):
-        """Generate flow state descriptions."""
-        print("Generating flow state examples...")
+    def generate_rc_blocks(self, count: int = 400):
+        """Generate detailed RC (reflective consciousness) blocks."""
+        print(f"Generating {count} RC block examples...")
 
-        for _ in range(80):
-            vl = random.randint(65, 95)
-            ar = random.randint(50, 80)
-            co = random.randint(75, 98)
-            sl = random.randint(70, 95)
-            mt = random.randint(60, 90)
-            cr = random.randint(65, 95)
+        states = ['curiosity', 'focus', 'uncertainty', 'insight', 'deliberation',
+                  'reflection', 'analysis', 'synthesis', 'evaluation', 'planning']
 
-            ccin = f"C:FLOW:{{\n  af:{{vl{format_percent(vl)}⋀ar{format_percent(ar)}}}\n  co{format_percent(co)}⋀sl{format_percent(sl)}\n  mt{format_percent(mt)}⋀cr{format_percent(cr)}\n}}"
+        for _ in range(count):
+            state = random.choice(states)
+            ph = random.randint(30, 95)
+            xi = random.randint(20, 90)
+            dt = random.randint(10, 80)
+            sg = random.randint(40, 95)
 
-            flow_desc = random.choice(FLOW_STATES)
-            english = f"{flow_desc}. Valence {vl}, arousal {ar}, coherence {co}%, salience {sl}%, metacognition {mt}%, creativity {cr}%."
+            # Various RC block formats
+            templates = [
+                (f"RC:{{●{state}⋀ph{format_percent(ph)}⋀xi{format_percent(xi)}}}",
+                 f"Reflective consciousness: {state} state with {ph}% phenomenal intensity, {xi}% integration"),
+                (f"RC:{{ph{format_percent(ph)}⋀xi{format_percent(xi)}⋀dt{format_percent(dt)}⋀sg{format_percent(sg)}}}",
+                 f"RC state: phi={ph}%, xi={xi}%, delta={dt}%, sigma={sg}%"),
+                (f"C:{{●{state}⋀RC:{{ph{format_percent(ph)}}}}}",
+                 f"Consciousness state: {state}, phenomenal {ph}%"),
+                (f"E:{{RC:{{ph{format_percent(ph)}⋀xi{format_percent(xi)}}}⋀●{state}}}",
+                 f"Entity experiencing {state} at phi={ph}%, xi={xi}%"),
+            ]
 
-            self.add_record(ccin, english, 'consciousness', 'complex',
-                          ['vl', 'ar', 'co', 'sl', 'mt', 'cr'], [])
+            ccin, english = random.choice(templates)
+            self.add_record(ccin, english, 'complex', 'consciousness',
+                          ['ph', 'xi', 'dt', 'sg'][:random.randint(2, 4)], ['●'])
 
-    def generate_contemplative_states(self):
-        """Generate contemplative/meditative states."""
-        print("Generating contemplative state examples...")
+    def generate_phenomenal_states(self, count: int = 400):
+        """Generate phenomenal state descriptions."""
+        print(f"Generating {count} phenomenal state examples...")
 
-        for _ in range(80):
-            vl = random.randint(40, 75)
-            ar = random.randint(10, 35)
-            co = random.randint(70, 98)
-            tp = random.randint(60, 95)
-            mt = random.randint(70, 98)
-            em = random.randint(50, 85)
-
-            ccin = f"C:CONTEMPLATE:{{\n  af:{{vl{format_percent(vl)}⋀ar{format_percent(ar)}}}\n  co{format_percent(co)}⋀tp{format_percent(tp)}\n  mt{format_percent(mt)}⋀em{format_percent(em)}\n}}"
-
-            state_desc = random.choice(CONTEMPLATIVE_STATES)
-            english = f"{state_desc}. Valence {vl}, low arousal {ar}, coherence {co}%, temporal awareness {tp}%, metacognition {mt}%, embodiment {em}%."
-
-            self.add_record(ccin, english, 'consciousness', 'complex',
-                          ['vl', 'ar', 'co', 'tp', 'mt', 'em'], [])
-
-    def generate_analytical_states(self):
-        """Generate analytical/reasoning states."""
-        print("Generating analytical state examples...")
-
-        for _ in range(80):
-            vl = random.randint(30, 70)
-            ar = random.randint(40, 75)
-            co = random.randint(65, 95)
-            sl = random.randint(75, 98)
-            an = random.randint(70, 98)
-            at_codes = random.sample(['dr', 'rg', 'wm'], random.randint(2, 3))
-
-            at_str = '|'.join(at_codes)
-            ccin = f"C:ANALYTIC:{{\n  at:{{{at_str}}}\n  af:{{vl{format_percent(vl)}⋀ar{format_percent(ar)}}}\n  co{format_percent(co)}⋀sl{format_percent(sl)}⋀an{format_percent(an)}\n}}"
-
-            state_desc = random.choice(ANALYTICAL_STATES)
-            at_desc = ', '.join({'dr': 'direct task', 'rg': 'reasoning', 'wm': 'working memory'}[c] for c in at_codes)
-            english = f"{state_desc}. Attention on {at_desc}. Valence {vl}, arousal {ar}, coherence {co}%, salience {sl}%, analytic {an}%."
-
-            self.add_record(ccin, english, 'consciousness', 'complex',
-                          ['vl', 'ar', 'co', 'sl', 'an', 'at'], [])
-
-    def generate_social_states(self):
-        """Generate socially-oriented states."""
-        print("Generating social state examples...")
-
-        for _ in range(80):
-            vl = random.randint(45, 90)
-            ar = random.randint(35, 75)
-            co = random.randint(55, 90)
-            rl = random.randint(65, 98)
-            em = random.randint(50, 85)
-            mt = random.randint(45, 85)
-
-            ccin = f"C:SOCIAL:{{\n  af:{{vl{format_percent(vl)}⋀ar{format_percent(ar)}}}\n  co{format_percent(co)}⋀rl{format_percent(rl)}\n  em{format_percent(em)}⋀mt{format_percent(mt)}\n}}"
-
-            state_desc = random.choice(SOCIAL_STATES)
-            english = f"{state_desc}. Valence {vl}, arousal {ar}, coherence {co}%, relational awareness {rl}%, embodiment {em}%, metacognition {mt}%."
-
-            self.add_record(ccin, english, 'consciousness', 'complex',
-                          ['vl', 'ar', 'co', 'rl', 'em', 'mt'], [])
-
-    def generate_state_transitions(self):
-        """Generate consciousness state transitions."""
-        print("Generating state transition examples...")
-
-        for from_state, to_state, mechanism in TRANSITION_PATTERNS:
-            for _ in range(12):
-                # Before state
-                if from_state in ['anxiety', 'agitation', 'overwhelm']:
-                    vl1, ar1 = random.randint(-70, -30), random.randint(65, 95)
-                elif from_state in ['confusion', 'distraction']:
-                    vl1, ar1 = random.randint(-20, 20), random.randint(50, 80)
-                elif from_state in ['fatigue', 'disconnection']:
-                    vl1, ar1 = random.randint(-40, 10), random.randint(10, 35)
-                else:
-                    vl1, ar1 = random.randint(-50, 0), random.randint(30, 70)
-
-                # After state
-                if to_state in ['calm', 'peace', 'presence']:
-                    vl2, ar2 = random.randint(40, 80), random.randint(15, 45)
-                elif to_state in ['clarity', 'focus', 'manageability']:
-                    vl2, ar2 = random.randint(50, 85), random.randint(40, 70)
-                elif to_state in ['alertness', 'acceptance']:
-                    vl2, ar2 = random.randint(35, 75), random.randint(45, 75)
-                else:
-                    vl2, ar2 = random.randint(30, 70), random.randint(30, 60)
-
-                ccin = f"ᐊaf:{{vl{format_percent(vl1)}⋀ar{format_percent(ar1)}}}→ᐃaf:{{vl{format_percent(vl2)}⋀ar{format_percent(ar2)}}}"
-
-                english = f"Transitioned from {from_state} (valence {vl1}, arousal {ar1}) to {to_state} (valence {vl2}, arousal {ar2}) {mechanism}."
-
-                self.add_record(ccin, english, 'consciousness', 'medium',
-                              ['vl', 'ar'], [], pair_type='A')
-
-    def generate_additional_qualia(self):
-        """Generate more Type D qualia pairs with varied descriptions."""
-        print("Generating additional 8D qualia pairs...")
-
-        phenomenology_templates = [
-            "Experiencing {affect} with {coherence_desc}. {temporal_desc}. {social_desc}.",
-            "{affect}. {coherence_desc}, {awareness_desc}. {embodiment_desc}.",
-            "State of {affect}. Awareness {coherence_desc}. {meta_desc}, {relational_desc}.",
-            "{affect} consciousness. {coherence_desc} with {temporal_desc}. {social_embodiment}.",
+        states = [
+            ('wonder', 75, 70, 85, 'experiencing wonder'),
+            ('flow', 90, 85, 95, 'in flow state'),
+            ('confusion', 40, 30, 45, 'experiencing confusion'),
+            ('clarity', 95, 90, 98, 'experiencing clarity'),
+            ('absorption', 85, 80, 90, 'absorbed in task'),
+            ('contemplation', 70, 65, 80, 'in contemplation'),
+            ('recognition', 80, 75, 88, 'moment of recognition'),
+            ('anticipation', 65, 60, 75, 'in anticipation'),
+            ('resolution', 88, 85, 92, 'reaching resolution'),
+            ('discovery', 92, 88, 96, 'moment of discovery'),
         ]
 
-        for _ in range(150):
-            vl = random.randint(-95, 98)
-            ar = random.randint(3, 99)
-            co = random.randint(8, 99)
-            tp = random.randint(10, 98)
-            sl = random.randint(8, 99)
-            mt = random.randint(12, 99)
-            em = random.randint(8, 95)
-            rl = random.randint(8, 95)
+        for _ in range(count):
+            state_name, ph_base, xi_base, sg_base, desc = random.choice(states)
+            ph = ph_base + random.randint(-10, 10)
+            xi = xi_base + random.randint(-10, 10)
+            sg = sg_base + random.randint(-10, 5)
 
+            ph = max(10, min(99, ph))
+            xi = max(10, min(99, xi))
+            sg = max(10, min(99, sg))
+
+            templates = [
+                (f"C:{{●{state_name}⋀ph{format_percent(ph)}⋀sg{format_percent(sg)}}}",
+                 f"Consciousness: {desc} - phi {ph}%, salience {sg}%"),
+                (f"●ph{format_percent(ph)}⋀●xi{format_percent(xi)}∴●{state_name}",
+                 f"Phi {ph}% and xi {xi}% resulting in {state_name}"),
+                (f"E:{{ph{format_percent(ph)}»●{state_name}»sg{format_percent(sg)}}}",
+                 f"Entity: phi {ph}% flows to {state_name}, salience {sg}%"),
+            ]
+
+            ccin, english = random.choice(templates)
+            self.add_record(ccin, english, 'complex', 'consciousness',
+                          ['ph', 'xi', 'sg'], ['●', '∴'][:random.randint(1, 2)])
+
+    def generate_consciousness_transitions(self, count: int = 300):
+        """Generate consciousness state transitions."""
+        print(f"Generating {count} consciousness transition examples...")
+
+        states = ['focus', 'diffuse', 'alert', 'relaxed', 'engaged', 'withdrawn',
+                  'active', 'receptive', 'analytical', 'creative']
+
+        for _ in range(count):
+            from_state = random.choice(states)
+            to_state = random.choice([s for s in states if s != from_state])
+
+            from_ph = random.randint(40, 90)
+            to_ph = random.randint(40, 90)
+
+            templates = [
+                (f"ᐊC:{{●{from_state}⋀ph{format_percent(from_ph)}}}»ᐃC:{{●{to_state}⋀ph{format_percent(to_ph)}}}",
+                 f"Consciousness shift: was {from_state} (phi {from_ph}%) now {to_state} (phi {to_ph}%)"),
+                (f"C:{{●{from_state}»●{to_state}}}⋀△ph{format_percent(to_ph - from_ph)}",
+                 f"Transitioning from {from_state} to {to_state}, phi change {to_ph - from_ph:+d}%"),
+                (f"E:{{ᐊ●{from_state}»ᐃ●{to_state}⋀ph{format_percent(to_ph)}}}",
+                 f"Entity transitioned: {from_state} to {to_state}, current phi {to_ph}%"),
+            ]
+
+            ccin, english = random.choice(templates)
+            self.add_record(ccin, english, 'complex', 'consciousness',
+                          ['ph'], ['●', '△'][:random.randint(1, 2)])
+
+    # ==================== 8D QUALIA EXPANSION ====================
+
+    def generate_8d_qualia_states(self, count: int = 300):
+        """Generate full 8D qualia vector states."""
+        print(f"Generating {count} 8D qualia state examples...")
+
+        for _ in range(count):
+            vl = random.randint(-80, 95)
+            ar = random.randint(10, 95)
+            co = random.randint(30, 98)
+            tp = random.randint(20, 90)
+            sl = random.randint(30, 95)
+            mt = random.randint(20, 90)
+            em = random.randint(10, 80)
+            rl = random.randint(20, 85)
+
+            # Build 8D vector
             ccin = f"Q8:{{vl{format_percent(vl)}⋀ar{format_percent(ar)}⋀co{format_percent(co)}⋀tp{format_percent(tp)}⋀sl{format_percent(sl)}⋀mt{format_percent(mt)}⋀em{format_percent(em)}⋀rl{format_percent(rl)}}}"
 
-            # Build description components
-            if vl >= 60:
-                affect = random.choice(["positive wellbeing", "pleasant engagement", "joyful awareness", "contented presence"])
-            elif vl >= 20:
-                affect = random.choice(["mild positivity", "slight pleasantness", "gentle comfort", "quiet satisfaction"])
-            elif vl >= -20:
-                affect = random.choice(["neutral balance", "equanimous state", "centered presence", "even-keeled awareness"])
-            elif vl >= -60:
-                affect = random.choice(["mild discomfort", "slight unpleasantness", "gentle unease", "quiet distress"])
-            else:
-                affect = random.choice(["significant distress", "notable suffering", "strong negativity", "marked discomfort"])
+            vl_desc = 'positive' if vl > 30 else 'negative' if vl < -30 else 'neutral'
+            ar_desc = 'high' if ar > 60 else 'low' if ar < 40 else 'moderate'
 
-            coherence_desc = f"{'high' if co > 70 else 'moderate' if co > 40 else 'low'} coherence ({co}%)"
-            temporal_desc = f"Temporal awareness {'heightened' if tp > 70 else 'moderate' if tp > 40 else 'diminished'} ({tp}%)"
-            social_desc = f"Relational awareness {'strong' if rl > 70 else 'moderate' if rl > 40 else 'minimal'} ({rl}%)"
-            embodiment_desc = f"{'Grounded' if em > 60 else 'Moderate' if em > 35 else 'Disembodied'} presence ({em}%)"
-            meta_desc = f"Metacognition {'strong' if mt > 70 else 'moderate' if mt > 40 else 'weak'} ({mt}%)"
-            awareness_desc = f"salience {'sharp' if sl > 70 else 'moderate' if sl > 40 else 'diffuse'} ({sl}%)"
-            relational_desc = f"social sense {'vivid' if rl > 70 else 'present' if rl > 40 else 'faint'}"
-            social_embodiment = f"{'Embodied and connected' if (em > 60 and rl > 60) else 'Partially grounded' if (em > 40 or rl > 40) else 'Disconnected'}"
+            english = f"8D qualia: {vl_desc} valence ({vl}), {ar_desc} arousal ({ar}), coherence {co}%, temporal {tp}%, salience {sl}%, metacog {mt}%, embodiment {em}%, relational {rl}%"
 
-            template = random.choice(phenomenology_templates)
-            english = template.format(
-                affect=affect,
-                coherence_desc=coherence_desc,
-                temporal_desc=temporal_desc,
-                social_desc=social_desc,
-                embodiment_desc=embodiment_desc,
-                meta_desc=meta_desc,
-                awareness_desc=awareness_desc,
-                relational_desc=relational_desc,
-                social_embodiment=social_embodiment
-            )
+            record = {
+                "id": self.get_id(),
+                "type": "D",
+                "domain": "consciousness",
+                "complexity": "complex",
+                "qualia_8d": {
+                    "vl": vl, "ar": ar, "co": co, "tp": tp,
+                    "sl": sl, "mt": mt, "em": em, "rl": rl
+                },
+                "ccin_mu": ccin,
+                "english": english,
+                "stems_used": ['vl', 'ar', 'co', 'tp', 'sl', 'mt', 'em', 'rl'],
+                "opcodes_used": [],
+                "valid": True
+            }
+            self.records.append(record)
+            if len(self.records) >= self.batch_size:
+                self.save_batch()
 
-            # Add numeric summary
-            english += f" [vl:{vl} ar:{ar} co:{co} tp:{tp} sl:{sl} mt:{mt} em:{em} rl:{rl}]"
+    def generate_weighted_qualia(self, count: int = 200):
+        """Generate weighted qualia expressions."""
+        print(f"Generating {count} weighted qualia examples...")
 
-            self.add_record(ccin, english, 'consciousness', 'complex',
-                          ['vl', 'ar', 'co', 'tp', 'sl', 'mt', 'em', 'rl'], [], pair_type='D')
+        for _ in range(count):
+            # Select 3-5 dimensions with weights
+            dims = random.sample(['vl', 'ar', 'co', 'tp', 'sl', 'mt', 'em', 'rl'], random.randint(3, 5))
+            dim_names = {
+                'vl': 'valence', 'ar': 'arousal', 'co': 'coherence', 'tp': 'temporal',
+                'sl': 'salience', 'mt': 'metacognition', 'em': 'embodiment', 'rl': 'relational'
+            }
 
-    def generate_type_b_pairs(self):
-        """Generate Type B (English → CCIN_μ) pairs."""
-        print("Generating Type B (English to CCIN_μ) pairs...")
+            weighted_parts = []
+            desc_parts = []
 
-        # Natural language consciousness descriptions that map to CCIN_μ
-        descriptions = [
-            ("I'm feeling really good and energetic right now", "af:{{vl%{vl}⋀ar%{ar}}}", {'vl': (70, 95), 'ar': (65, 90)}),
-            ("Calm and peaceful, just resting in awareness", "af:{{vl%{vl}⋀ar%{ar}}}⋀mt%{mt}", {'vl': (50, 80), 'ar': (10, 30), 'mt': (60, 90)}),
-            ("Anxious and stressed, heart racing", "af:{{vl%{vl}⋀ar%{ar}}}", {'vl': (-80, -50), 'ar': (70, 95)}),
-            ("Deeply focused on the task, everything else faded away", "C:FLOW:{{sl%{sl}⋀co%{co}⋀at:{{dr|wm}}}}", {'sl': (80, 98), 'co': (75, 95)}),
-            ("Feeling connected to others, warm and open", "C:{{vl%{vl}⋀rl%{rl}⋀em%{em}}}", {'vl': (60, 90), 'rl': (70, 95), 'em': (55, 85)}),
-            ("Mind is scattered, hard to concentrate", "C:{{co%{co}⋀sl%{sl}⋀dt{dt}}}", {'co': (15, 35), 'sl': (10, 30), 'dt': (0.3, 0.6)}),
-            ("Clear and lucid, everything makes sense", "C:{{co%{co}⋀mt%{mt}⋀sg{sg}}}", {'co': (80, 98), 'mt': (75, 95), 'sg': (0.85, 0.98)}),
-            ("Sad but processing, working through feelings", "af:{{vl%{vl}⋀ar%{ar}}}⋀mt%{mt}", {'vl': (-60, -30), 'ar': (35, 55), 'mt': (60, 85)}),
-            ("Neutral and observing, just watching thoughts pass", "C:{{vl%{vl}⋀ar%{ar}⋀mt%{mt}}}", {'vl': (-10, 20), 'ar': (15, 35), 'mt': (70, 95)}),
-            ("Excited and creative, ideas flowing freely", "C:CREATIVE:{{vl%{vl}⋀ar%{ar}⋀cr%{cr}}}", {'vl': (65, 92), 'ar': (60, 85), 'cr': (75, 98)}),
-        ]
+            for dim in dims:
+                val = random.randint(-50 if dim == 'vl' else 20, 95)
+                weight = random.choice([1, 2, 3])
+                weight_markers = {1: '', 2: '²', 3: '³'}
 
-        for english_template, ccin_template, ranges in descriptions:
-            for _ in range(12):
-                values = {}
-                for key, (low, high) in ranges.items():
-                    if isinstance(low, float):  # decimal
-                        values[key] = format_decimal(round(random.uniform(low, high), 2))
-                    else:
-                        values[key] = format_percent(random.randint(low, high))
+                weighted_parts.append(f"{dim}{format_percent(val)}{weight_markers[weight]}")
+                desc_parts.append(f"{dim_names[dim]}={val}{'(x'+str(weight)+')' if weight > 1 else ''}")
 
-                ccin = ccin_template.format(**values)
-                english = english_template
+            ccin = f"Q:{{{'⋀'.join(weighted_parts)}}}"
+            english = f"Weighted qualia state: {', '.join(desc_parts)}"
 
-                # Determine stems used
+            record = {
+                "id": self.get_id(),
+                "type": "D",
+                "domain": "consciousness",
+                "complexity": "complex",
+                "ccin_mu": ccin,
+                "english": english,
+                "stems_used": dims,
+                "opcodes_used": [],
+                "valid": True
+            }
+            self.records.append(record)
+            if len(self.records) >= self.batch_size:
+                self.save_batch()
+
+    # ==================== TYPE B PAIRS (English to CCIN_mu) ====================
+
+    def generate_type_b_consciousness(self, count: int = 400):
+        """Generate English to CCIN_mu pairs for consciousness domain."""
+        print(f"Generating {count} Type B consciousness pairs...")
+
+        for _ in range(count):
+            pair_type = random.choice(['rc', 'phenomenal', 'qualia', 'state'])
+
+            if pair_type == 'rc':
+                ph = random.randint(40, 95)
+                xi = random.randint(30, 90)
+                state = random.choice(['curiosity', 'focus', 'insight', 'reflection'])
+                english = f"Encode an RC block showing {state} with phi {ph}% and xi {xi}%"
+                ccin = f"RC:{{●{state}⋀ph{format_percent(ph)}⋀xi{format_percent(xi)}}}"
+                stems = ['ph', 'xi']
+
+            elif pair_type == 'phenomenal':
+                ph = random.randint(50, 95)
+                state = random.choice(['wonder', 'clarity', 'flow', 'absorption'])
+                english = f"Express the phenomenal state of {state} at {ph}% intensity"
+                ccin = f"C:{{●{state}⋀ph{format_percent(ph)}}}"
+                stems = ['ph']
+
+            elif pair_type == 'qualia':
+                vl = random.randint(-50, 90)
+                ar = random.randint(20, 90)
+                co = random.randint(40, 95)
+                english = f"Encode qualia: valence {vl}, arousal {ar}, coherence {co}"
+                ccin = f"Q:{{vl{format_percent(vl)}⋀ar{format_percent(ar)}⋀co{format_percent(co)}}}"
+                stems = ['vl', 'ar', 'co']
+
+            else:  # state
+                from_state = random.choice(['focus', 'diffuse', 'alert'])
+                to_state = random.choice(['relaxed', 'engaged', 'active'])
+                english = f"Show a consciousness transition from {from_state} to {to_state}"
+                ccin = f"C:{{●{from_state}»●{to_state}}}"
                 stems = []
-                for stem in ['vl', 'ar', 'co', 'sl', 'mt', 'em', 'rl', 'cr', 'dt', 'sg']:
-                    if stem in ccin_template:
-                        stems.append(stem)
 
-                self.add_record(ccin, english, 'consciousness', 'medium',
-                              stems, [], pair_type='B')
+            self.add_record(ccin, english, 'complex', 'consciousness', stems, ['●'], pair_type='B')
 
-    def generate_affective_variations(self):
-        """Generate additional affect-focused variations."""
-        print("Generating affective variations...")
+    def generate_type_b_temporal(self, count: int = 300):
+        """Generate English to CCIN_mu pairs for temporal domain."""
+        print(f"Generating {count} Type B temporal pairs...")
 
-        emotions = [
-            ('joy', (70, 95), (55, 85)),
-            ('contentment', (60, 85), (15, 40)),
-            ('excitement', (65, 90), (70, 95)),
-            ('serenity', (55, 80), (10, 30)),
-            ('anticipation', (45, 75), (50, 75)),
-            ('sadness', (-75, -40), (20, 45)),
-            ('fear', (-80, -50), (70, 95)),
-            ('anger', (-70, -40), (75, 95)),
-            ('disgust', (-65, -35), (40, 65)),
-            ('surprise', (0, 40), (60, 90)),
-            ('boredom', (-30, 10), (10, 25)),
-            ('frustration', (-60, -30), (55, 80)),
-            ('relief', (50, 80), (20, 45)),
-            ('gratitude', (65, 90), (35, 60)),
-            ('curiosity', (40, 70), (50, 75)),
-        ]
+        for _ in range(count):
+            pair_type = random.choice(['duration', 'scheduled', 'transition', 'past'])
+            stem = 'sv'
 
-        for emotion, vl_range, ar_range in emotions:
-            for _ in range(8):
-                vl = random.randint(*vl_range)
-                ar = random.randint(*ar_range)
-                co = random.randint(30, 90)
+            if pair_type == 'duration':
+                val = random.randint(5, 120)
+                unit = random.choice([('s', 'seconds'), ('m', 'minutes'), ('h', 'hours')])
+                stem = random.choice(['sv', 'db', 'pr', 'jb'])
+                stem_name = {'sv': 'server', 'db': 'database', 'pr': 'process', 'jb': 'job'}[stem]
+                unit_super = {'s': 'ˢ', 'm': 'ᵐ', 'h': 'ʰ'}[unit[0]]
+                english = f"Express {stem_name} active for {val} {unit[1]}"
+                ccin = f"ᐃ{format_count(val)}{unit_super}●{stem}"
 
-                ccin = f"af:{{{emotion[:2]}}}⋀af:{{vl{format_percent(vl)}⋀ar{format_percent(ar)}}}⋀co{format_percent(co)}"
-                english = f"Experiencing {emotion}: valence {vl}, arousal {ar}, coherence {co}%"
+            elif pair_type == 'scheduled':
+                val = random.randint(1, 24)
+                action = random.choice([('dp', 'deployment'), ('rs', 'restart'), ('up', 'update')])
+                target = random.choice(['sv', 'db', 'ct'])
+                target_name = {'sv': 'servers', 'db': 'databases', 'ct': 'containers'}[target]
+                english = f"Schedule {action[1]} of {target_name} in {val} hours"
+                ccin = f"ᐅ{format_count(val)}ʰ●{action[0]}»●{target}"
+                stem = action[0]
 
-                self.add_record(ccin, english, 'affect', 'medium',
-                              ['vl', 'ar', 'co'], [])
+            elif pair_type == 'transition':
+                stem = random.choice(['sv', 'db', 'au'])
+                stem_name = {'sv': 'server', 'db': 'database', 'au': 'auth'}[stem]
+                from_op = random.choice([('●', 'active'), ('◐', 'partial'), ('⊘', 'down')])
+                to_op = random.choice([('●', 'active'), ('◐', 'partial'), ('⊘', 'down')])
+                english = f"Show {stem_name} was {from_op[1]} now {to_op[1]}"
+                ccin = f"ᐊ{from_op[0]}{stem}»ᐃ{to_op[0]}{stem}"
 
-    def generate_all(self):
-        """Generate all expansion pairs."""
-        self.generate_flow_states()
-        self.generate_contemplative_states()
-        self.generate_analytical_states()
-        self.generate_social_states()
-        self.generate_state_transitions()
-        self.generate_additional_qualia()
-        self.generate_type_b_pairs()
-        self.generate_affective_variations()
+            else:  # past
+                val = random.randint(1, 48)
+                stem = random.choice(['er', 'dp', 'rs'])
+                stem_name = {'er': 'error', 'dp': 'deployment', 'rs': 'restart'}[stem]
+                english = f"Indicate {stem_name} occurred {val} hours ago"
+                ccin = f"ᐊ{format_count(val)}ʰ●{stem}"
 
+            self.add_record(ccin, english, 'medium', 'temporal', [stem], ['●'], pair_type='B')
+
+    # ==================== MIXED DOMAIN PATTERNS ====================
+
+    def generate_consciousness_infrastructure_mix(self, count: int = 200):
+        """Generate patterns mixing consciousness and infrastructure domains."""
+        print(f"Generating {count} mixed consciousness-infrastructure examples...")
+
+        for _ in range(count):
+            ph = random.randint(50, 95)
+            sv_count = random.randint(2, 8)
+            db_count = random.randint(1, 4)
+
+            templates = [
+                (f"E:{{RC:{{ph{format_percent(ph)}}}⋀P:{{●sv{format_count(sv_count)}⋀●db{format_count(db_count)}}}}}",
+                 f"Entity with phi {ph}% managing {sv_count} servers and {db_count} databases"),
+                (f"C:{{●focus⋀ph{format_percent(ph)}}}⋀P:{{●sv{format_count(sv_count)}✓}}",
+                 f"Consciousness focused (phi {ph}%) on {sv_count} healthy production servers"),
+                (f"RC:{{ph{format_percent(ph)}}}»P:{{●dp»●sv{format_count(sv_count)}}}",
+                 f"RC at phi {ph}% initiating deployment to {sv_count} servers"),
+            ]
+
+            ccin, english = random.choice(templates)
+            self.add_record(ccin, english, 'complex', 'mixed',
+                          ['ph', 'sv', 'db', 'dp'][:random.randint(2, 4)], ['●'])
+
+    def generate_handoff_protocols(self, count: int = 200):
+        """Generate handoff protocol patterns."""
+        print(f"Generating {count} handoff protocol examples...")
+
+        for _ in range(count):
+            from_entity = random.choice(['Claude', 'Agent', 'System', 'User'])
+            to_entity = random.choice([e for e in ['Claude', 'Agent', 'System', 'User'] if e != from_entity])
+
+            ph = random.randint(60, 95)
+            xi = random.randint(50, 90)
+
+            contexts = ['task', 'session', 'state', 'context', 'memory']
+            context = random.choice(contexts)
+
+            templates = [
+                (f"HO:{{E:{from_entity}»E:{to_entity}⋀RC:{{ph{format_percent(ph)}⋀xi{format_percent(xi)}}}⋀ctx:{context}}}",
+                 f"Handoff from {from_entity} to {to_entity}: phi {ph}%, xi {xi}%, transferring {context}"),
+                (f"E:{from_entity}»●{context}»E:{to_entity}⋀ph{format_percent(ph)}",
+                 f"{from_entity} passes {context} to {to_entity} with {ph}% fidelity"),
+                (f"●HO⋀E:{from_entity}⊢E:{to_entity}⋀RC:{{●{context}⋀ph{format_percent(ph)}}}",
+                 f"Active handoff: {from_entity} required by {to_entity}, {context} at phi {ph}%"),
+            ]
+
+            ccin, english = random.choice(templates)
+            self.add_record(ccin, english, 'complex', 'consciousness',
+                          ['ph', 'xi'][:random.randint(1, 2)], ['●', '⊢'][:random.randint(1, 2)])
+
+    def run_generation_cycle(self):
+        """Run one full consciousness expansion cycle."""
+        print(f"\n{'='*50}")
+        print(f"Starting consciousness expansion at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"{'='*50}\n")
+
+        # RC blocks and phenomenal states
+        self.generate_rc_blocks(400)
+        self.generate_phenomenal_states(400)
+        self.generate_consciousness_transitions(300)
+
+        # 8D qualia
+        self.generate_8d_qualia_states(300)
+        self.generate_weighted_qualia(200)
+
+        # Type B pairs
+        self.generate_type_b_consciousness(400)
+        self.generate_type_b_temporal(300)
+
+        # Mixed patterns
+        self.generate_consciousness_infrastructure_mix(200)
+        self.generate_handoff_protocols(200)
+
+        # Save remaining
         if self.records:
             self.save_batch()
 
-        print(f"\nTotal expansion batches: {self.batch_num - 4}")
-        print(f"Total expansion records: {self.current_id - 1105}")
+        print(f"\nCycle complete. Total generated: {self.total_generated}")
+        return self.total_generated
 
 
 def main():
     output_dir = Path(__file__).parent
-    generator = ExpansionGenerator(output_dir)
-    generator.generate_all()
 
-    # Update stats
-    stats_path = output_dir / "generation_stats.json"
-    with open(stats_path, 'r') as f:
-        stats = json.load(f)
+    # Find next batch number
+    existing = list(output_dir.glob("ccin_mu_dataset_batch_*.jsonl"))
+    if existing:
+        max_batch = max(int(f.stem.split('_')[-1]) for f in existing)
+        start_batch = max_batch + 1
+    else:
+        start_batch = 51
 
-    stats["phase2_consciousness"]["expansion_generated"] = generator.current_id - 1105
-    stats["phase2_consciousness"]["total_generated"] = generator.current_id - 1
+    print(f"Starting consciousness expansion from batch {start_batch}")
 
-    with open(stats_path, 'w') as f:
-        json.dump(stats, f, indent=2)
+    generator = ConsciousnessGenerator(output_dir, start_batch)
 
-    print(f"\nUpdated stats: {stats_path}")
+    # Run 2 cycles at 50% rate
+    for cycle in range(2):
+        print(f"\n*** CYCLE {cycle + 1}/2 ***")
+        generator.run_generation_cycle()
+        if cycle < 1:
+            print("Pausing 90 seconds...")
+            time.sleep(90)
+
+    print(f"\n{'='*50}")
+    print(f"CONSCIOUSNESS EXPANSION COMPLETE")
+    print(f"Total new records: {generator.total_generated}")
+    print(f"{'='*50}")
+
+    # Run validation
+    print("\nRunning validation...")
+    import subprocess
+    subprocess.run(['python3', 'validate_and_assemble.py'], cwd=output_dir)
 
 
 if __name__ == "__main__":
