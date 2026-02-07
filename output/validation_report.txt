@@ -1,27 +1,27 @@
 CCIN_μ Dataset Validation Report
 ==================================================
 
-Total Records: 201217
-Train Records: 181095
-Validation Records: 20122
+Total Records: 206917
+Train Records: 186225
+Validation Records: 20692
 
 Statistics by Type:
-  A: 126569
-  D: 20362
-  B: 33086
-  C: 21200
+  A: 130169
+  D: 20962
+  B: 33986
+  C: 21800
 
 Statistics by Domain:
-  consciousness: 65778
-  affect: 34717
-  infrastructure: 58853
-  temporal: 36071
+  consciousness: 67783
+  affect: 35869
+  infrastructure: 60264
+  temporal: 37203
   mixed: 5798
 
 Statistics by Complexity:
-  simple: 31420
-  medium: 107157
-  complex: 62640
+  simple: 32320
+  medium: 110457
+  complex: 64140
 
 ==================================================
 
